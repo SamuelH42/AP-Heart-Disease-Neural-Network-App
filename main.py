@@ -6,8 +6,9 @@ import numpy as np
 # pandas used for data set reading and writing
 import pandas as pd
 
+
 dataset = pd.read_csv("heart_disease_health_indicators_BRFSS2015.csv")
-train_inputs = pd.DataFrame.drop(dataset, columns=['HeartDiseaseorAttack', 'NoDocbcCost', 'GenHlth', 'MentHlth', 'PhysHlth', 'DiffWalk', 'Sex', 'Age', 'Education', 'Income', "BMI"])
+train_inputs = pd.DataFrame.drop(dataset, columns=['HeartDiseaseorAttack', 'NoDocbcCost', 'GenHlth', 'MentHlth', 'PhysHlth', 'DiffWalk', 'Sex', 'Age', 'Education', 'Income', "BMI", "CholCheck", "HvyAlcoholConsump"])
 train_outputs = pd.DataFrame(dataset, columns=['HeartDiseaseorAttack'])
 
 
@@ -30,18 +31,28 @@ def user_input(iterations):
 class ANN():
     def __init__(self):
         np.random.seed(1)
-        self.synaptic_weights = 2 * np.random.random((11, 1)) - 1
+        # self.synaptic_weights = 2 * np.random.random((9, 1)) - 1
+        self.synaptic_weights = [
+            [-458.67419002],
+            [-1139.43738825],
+            [-3.26902561],
+            [166.22498024],
+            [438.53551166],
+            [-1792.40914061],
+            [-1117.75363439],
+            [-2185.43465486],
+            [-3005.18725328]]
 
     def train(self, training_inputs, training_outputs, training_iterations):
         for iteration in range(training_iterations):
-            output = self.think(training_inputs)
+            output = self.think(training_inputs, self.synaptic_weights)
             error = training_outputs - output
             adjustments = np.dot(training_inputs.T, error * sigmoid_derivative(output))
             self.synaptic_weights += adjustments
 
-    def think(self, inputs):
+    def think(self, inputs, weights):
         inputs = inputs.astype(float)
-        output = sigmoid(np.dot(inputs, self.synaptic_weights))
+        output = sigmoid(np.dot(inputs, weights))
         return output
 
 
@@ -59,9 +70,9 @@ if __name__ == '__main__':
     print('Weight after training: ')
     print(neural_network.synaptic_weights)
 
-    user_input(11)
+    user_input(9)
 
     print("Considering New Situation: " + str(user_choices))
     print('Output: ')
-    print(neural_network.think(np.array([user_choices])))
+    print(neural_network.think(np.array([user_choices]), neural_network.synaptic_weights))
 

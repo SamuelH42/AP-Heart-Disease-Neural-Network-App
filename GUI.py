@@ -5,6 +5,8 @@ import main
 # numpy import again
 import numpy as np
 
+count = 0
+
 question_column = [
     [
         sg.Text("Health Questions: "
@@ -33,8 +35,6 @@ yes_no_column = [
     [sg.Text("8: ")], [sg.Button("Yes(8)", enable_events=True), sg.Button("No(8)", enable_events=True)],
     [sg.Text("9: ")], [sg.Button("Yes(9)", enable_events=True), sg.Button("No(9)", enable_events=True)],
     [sg.Text("10: ")], [sg.Button("Yes(10)", enable_events=True), sg.Button("No(10)", enable_events=True)],
-    [sg.Text("11: ")], [sg.Button("Yes(11)", enable_events=True), sg.Button("No(11)", enable_events=True)],
-    [sg.Text("12: ")], [sg.Button("Yes(12)", enable_events=True), sg.Button("No(12)", enable_events=True)],
     [sg.Button("Submit Answers", enable_events=True)]
 ]
 
@@ -67,7 +67,7 @@ while True:
     if event == "Start AI":
         main.neural_network = main.ANN()
 
-        print("Random Weights: ")
+        print("Initial Weights: ")
         print(main.neural_network.synaptic_weights)
 
         training_inputs = main.train_inputs
@@ -115,16 +115,18 @@ while True:
         add_answer(10, "Yes")
     elif event == "No(10)":
         add_answer(10, "No")
-    elif event == "Yes(11)":
-        add_answer(11, "Yes")
-    elif event == "No(11)":
-        add_answer(11, "No")
-    elif event == "Yes(12)":
-        add_answer(12, "Yes")
-    elif event == "No(12)":
-        add_answer(12, "No")
 
     if event == "Submit Answers":
-        layout2 = [[sg.Text(str(main.neural_network.think(np.array([GUI_input]))))]]
+        count = count + 1
+        if count >= 2:
+            weight = past_trained_weights
+        else:
+            weight = main.neural_network.synaptic_weights
+        layout2 = [
+            [sg.Text(str(main.neural_network.think(np.array([GUI_input]), weight)))],
+            [sg.Text("Close this window to "
+                     "enter different data, "
+                     "w/o running the AI "
+                     "again.")]]
         window2 = sg.Window("AI App Results", layout2)
         event, values = window2.read()
