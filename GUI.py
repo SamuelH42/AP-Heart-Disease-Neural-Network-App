@@ -24,18 +24,18 @@ question_column = [
 ]
 
 yes_no_column = [
-    [sg.Button("Start AI", enable_events=True)],
+    [sg.Button("Start AI", button_color=('white', 'green'), enable_events=True, key='STAI')],
     [sg.Text("Answers: ")],
-    [sg.Text("2: ")], [sg.Button("Yes(2)", enable_events=True), sg.Button("No(2)", enable_events=True)],
-    [sg.Text("3: ")], [sg.Button("Yes(3)", enable_events=True), sg.Button("No(3)", enable_events=True)],
-    [sg.Text("4: ")], [sg.Button("Yes(4)", enable_events=True), sg.Button("No(4)", enable_events=True)],
-    [sg.Text("5: ")], [sg.Button("Yes(5)", enable_events=True), sg.Button("No(5)", enable_events=True)],
-    [sg.Text("6: ")], [sg.Button("Yes(6)", enable_events=True), sg.Button("No(6)", enable_events=True)],
-    [sg.Text("7: ")], [sg.Button("Yes(7)", enable_events=True), sg.Button("No(7)", enable_events=True)],
-    [sg.Text("8: ")], [sg.Button("Yes(8)", enable_events=True), sg.Button("No(8)", enable_events=True)],
-    [sg.Text("9: ")], [sg.Button("Yes(9)", enable_events=True), sg.Button("No(9)", enable_events=True)],
-    [sg.Text("10: ")], [sg.Button("Yes(10)", enable_events=True), sg.Button("No(10)", enable_events=True)],
-    [sg.Button("Submit Answers", enable_events=True)]
+    [sg.Text("2: ")], [sg.Button("Yes(2)", button_color=('white', 'green'), enable_events=True, key='Y2'), sg.Button("No(2)", button_color=('white', 'green'), enable_events=True, key='N2')],
+    [sg.Text("3: ")], [sg.Button("Yes(3)", button_color=('white', 'green'), enable_events=True, key='Y3'), sg.Button("No(3)", button_color=('white', 'green'), enable_events=True, key='N3')],
+    [sg.Text("4: ")], [sg.Button("Yes(4)", button_color=('white', 'green'), enable_events=True, key='Y4'), sg.Button("No(4)", button_color=('white', 'green'), enable_events=True, key='N4')],
+    [sg.Text("5: ")], [sg.Button("Yes(5)", button_color=('white', 'green'), enable_events=True, key='Y5'), sg.Button("No(5)", button_color=('white', 'green'), enable_events=True, key='N5')],
+    [sg.Text("6: ")], [sg.Button("Yes(6)", button_color=('white', 'green'), enable_events=True, key='Y6'), sg.Button("No(6)", button_color=('white', 'green'), enable_events=True, key='N6')],
+    [sg.Text("7: ")], [sg.Button("Yes(7)", button_color=('white', 'green'), enable_events=True, key='Y7'), sg.Button("No(7)", button_color=('white', 'green'), enable_events=True, key='N7')],
+    [sg.Text("8: ")], [sg.Button("Yes(8)", button_color=('white', 'green'), enable_events=True, key='Y8'), sg.Button("No(8)", button_color=('white', 'green'), enable_events=True, key='N8')],
+    [sg.Text("9: ")], [sg.Button("Yes(9)", button_color=('white', 'green'), enable_events=True, key='Y9'), sg.Button("No(9)", button_color=('white', 'green'), enable_events=True, key='N9')],
+    [sg.Text("10: ")], [sg.Button("Yes(10)", button_color=('white', 'green'), enable_events=True, key='Y10'), sg.Button("No(10)", button_color=('white', 'green'), enable_events=True, key='N10')],
+    [sg.Button("Submit Answers", button_color=('white', 'green'), enable_events=True, key='SA')]
 ]
 
 layout = [
@@ -46,9 +46,6 @@ layout = [
     ]
 ]
 
-GUI_input = []
-past_trained_weights = []
-
 
 def add_answer(button_number, yes_no):
     if yes_no == "Yes":
@@ -58,13 +55,15 @@ def add_answer(button_number, yes_no):
 
 
 window1 = sg.Window("AI Health App", layout)
+GUI_input = []
+past_trained_weights = []
 
 while True:
     event, values = window1.read()
     if event == sg.WIN_CLOSED:
         break
 
-    if event == "Start AI":
+    if event == "STAI":
         main.neural_network = main.ANN()
 
         print("Initial Weights: ")
@@ -73,55 +72,53 @@ while True:
         training_inputs = main.train_inputs
         training_outputs = main.train_outputs
 
-        main.neural_network.train(training_inputs, training_outputs, 10000)
+        main.neural_network.train(training_inputs, training_outputs, 15000)
 
         print('Weight after training: ')
         print(main.neural_network.synaptic_weights)
         past_trained_weights.append(main.neural_network.synaptic_weights)
 
-    if event == "Yes(2)":
+    if event == "Y2":
         add_answer(1, "Yes")
-    elif event == "No(2)":
+    elif event == "N2":
         add_answer(1, "No")
-    elif event == "Yes(3)":
+    elif event == "Y3":
         add_answer(2, "Yes")
-    elif event == "No(3)":
+    elif event == "N3":
         add_answer(2, "No")
-    elif event == "Yes(4)":
+    elif event == "Y4":
         add_answer(4, "Yes")
-    elif event == "No(4)":
+    elif event == "N4":
         add_answer(4, "No")
-    elif event == "Yes(5)":
+    elif event == "Y5":
         add_answer(5, "Yes")
-    elif event == "No(5)":
+    elif event == "N5":
         add_answer(5, "No")
-    elif event == "Yes(6)":
+    elif event == "Y6":
         add_answer(6, "Yes")
-    elif event == "No(6)":
+    elif event == "N6":
         add_answer(6, "No")
-    elif event == "Yes(7)":
+    elif event == "Y7":
         add_answer(7, "Yes")
-    elif event == "No(7)":
+    elif event == "N7":
         add_answer(7, "No")
-    elif event == "Yes(8)":
+    elif event == "Y8":
         add_answer(8, "Yes")
-    elif event == "No(8)":
+    elif event == "N8":
         add_answer(8, "No")
-    elif event == "Yes(9)":
+    elif event == "Y9":
         add_answer(9, "Yes")
-    elif event == "No(9)":
+    elif event == "N9":
         add_answer(9, "No")
-    elif event == "Yes(10)":
+    elif event == "Y10)":
         add_answer(10, "Yes")
-    elif event == "No(10)":
+    elif event == "N10":
         add_answer(10, "No")
 
-    if event == "Submit Answers":
+    if event == "SA":
         count = count + 1
-        if count >= 2:
-            weight = past_trained_weights
-        else:
-            weight = main.neural_network.synaptic_weights
+        print(count)
+        weight = main.neural_network.synaptic_weights
         layout2 = [
             [sg.Text(str(main.neural_network.think(np.array([GUI_input]), weight)))],
             [sg.Text("Close this window to "
@@ -130,3 +127,5 @@ while True:
                      "again.")]]
         window2 = sg.Window("AI App Results", layout2)
         event, values = window2.read()
+        GUI_input = []
+        past_trained_weights = []

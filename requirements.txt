@@ -2,3 +2,4 @@ pip~=22.0.4
 numpy~=1.22.3
 setuptools~=61.2.0
 PySimpleGUI~=4.57.0
+pandas~=1.4.1
