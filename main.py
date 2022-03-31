@@ -31,28 +31,18 @@ def user_input(iterations):
 class ANN():
     def __init__(self):
         np.random.seed(1)
-        # self.synaptic_weights = 2 * np.random.random((9, 1)) - 1
-        self.synaptic_weights = [
-            [-458.67419002],
-            [-1139.43738825],
-            [-3.26902561],
-            [166.22498024],
-            [438.53551166],
-            [-1792.40914061],
-            [-1117.75363439],
-            [-2185.43465486],
-            [-3005.18725328]]
+        self.synaptic_weights = 2 * np.random.random((9, 1)) - 1
 
     def train(self, training_inputs, training_outputs, training_iterations):
         for iteration in range(training_iterations):
-            output = self.think(training_inputs, self.synaptic_weights)
+            output = self.think(training_inputs)
             error = training_outputs - output
             adjustments = np.dot(training_inputs.T, error * sigmoid_derivative(output))
             self.synaptic_weights += adjustments
 
-    def think(self, inputs, weights):
+    def think(self, inputs):
         inputs = inputs.astype(float)
-        output = sigmoid(np.dot(inputs, weights))
+        output = sigmoid(np.dot(inputs, self.synaptic_weights))
         return output
 
 
@@ -74,5 +64,5 @@ if __name__ == '__main__':
 
     print("Considering New Situation: " + str(user_choices))
     print('Output: ')
-    print(neural_network.think(np.array([user_choices]), neural_network.synaptic_weights))
+    print(neural_network.think(np.array([user_choices])))
 
