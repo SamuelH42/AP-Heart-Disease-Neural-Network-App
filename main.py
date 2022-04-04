@@ -1,5 +1,5 @@
-# Credit to https://www.kdnuggets.com/2018/10/simple-neural-network-python.html for information on creating ANN class
-# Credit to https://www.youtube.com/watch?v=z1PGJ9quPV8&list=PL3t2bW_hFraVDOxMPH4lWCUerCqG-fIJV&index=1&t=753s for information on working with pandas
+# Credit to https://www.kdnuggets.com/2018/10/simple-neural-network-python.html for information on creating the Nueral Network and Sigmoid functions
+# The heart disease health indicators data set is from Kaggle. It is from a phone survey, the Behavioral Risk Factor Surveillance System, run by the CDC. https://www.kaggle.com/datasets/alexteboul/heart-disease-health-indicators-dataset
 
 # numpy library used for math functions
 import numpy as np
@@ -48,21 +48,4 @@ class ANN():
 
 if __name__ == '__main__':
     neural_network = ANN()
-
-    print("Random Weights: ")
-    print(neural_network.synaptic_weights)
-
-    training_inputs = train_inputs
-    training_outputs = train_outputs
-
-    neural_network.train(training_inputs, training_outputs, 10000)
-
-    print('Weight after training: ')
-    print(neural_network.synaptic_weights)
-
-    user_input(9)
-
-    print("Considering New Situation: " + str(user_choices))
-    print('Output: ')
-    print(neural_network.think(np.array([user_choices])))
 

@@ -4,6 +4,8 @@ import PySimpleGUI as sg
 import main
 # numpy import again
 import numpy as np
+# time for timing the program speed
+import time
 
 count = 0
 
@@ -57,10 +59,11 @@ layout = [
 
 
 def add_answer(button_number, yes_no):
-    if yes_no == "Yes":
-        GUI_input.insert(button_number - 2, 1)
-    else:
-        GUI_input.insert(button_number - 2, 0)
+    for i in range(1):
+        if yes_no == "Yes":
+            GUI_input.insert(button_number - 2, 1)
+        else:
+            GUI_input.insert(button_number - 2, 0)
 
 
 def output(train):
@@ -82,6 +85,8 @@ while True:
         break
 
     if event == "STAI":
+        start = time.time()
+        print("Starting Timer: 0s")
         main.neural_network = main.ANN()
 
         print("Initial Weights: ")
@@ -95,6 +100,10 @@ while True:
         print('Weight after training: ')
         print(main.neural_network.synaptic_weights)
         past_trained_weights.append(main.neural_network.synaptic_weights)
+        end = time.time()
+        elapsed = end - start
+        minutes = elapsed/60
+        print("Program Finished in " + str(minutes) + " minutes")
 
     if event == "Y2":
         add_answer(2, "Yes")
